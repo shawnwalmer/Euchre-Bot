@@ -18,5 +18,5 @@ testAI(AIs.RealPlayer("RP"))
 print "RealPlayer is good."
 testAI(AIs.SimpleStat("SS"))
 print "SimpleStat is good."
-testAI(AIs.SimpleRules("SR"))
+testAI(AIs.SimpleStat("SR"))
 print "SimpleRules is good."

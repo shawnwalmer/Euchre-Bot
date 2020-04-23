@@ -8,6 +8,7 @@
 # reset(self)
 # setHand(self, new-hand)
 
+
 from my_globals import *
 
 import random
@@ -256,15 +257,15 @@ class RealPlayer(Player):
 		valid = self.validMoves()
 		while True:
 			if type(move) is int and 0 <= move < len(self.hand) and self.hand[move] in valid:
-				choice = self.hand.remove(move)
+				choice = self.hand.pop(move)
 				return choice
 			else:
 				move = int(input("Please enter a valid move: "))
 				
 	def updateInfo(self, winner):
 		print "The scores are A: %s, B %s" % (game.scoreA, game.scoreB)
-		print "The winner of the previous trick was %s" % (winner)
-		print "The center of the table is %s" % ", ".join(game.center.keys())
+		print "The winner of the previous trick was %s" % (winner.name)
+		print "The center of the table is %s" % ", ".join(v.encode('ascii', 'ignore') for v in game.center.keys())
 
 	def orderUp(self, center_card):
 		self.printHand()

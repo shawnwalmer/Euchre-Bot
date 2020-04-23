@@ -6,10 +6,10 @@ import random
 class Euchre():
 	def __init__(self):
 		# initialize AI's here
-		self.playerA1 = AIs.SimpleStat("Alex")
-		self.playerA2 = AIs.RandomPlay("Brian")
-		self.playerB1 = AIs.RandomPlay("Katrina")
-		self.playerB2 = AIs.RandomPlay("Sandy")
+		self.playerA1 = AIs.SimpleStat("Shawn")
+		self.playerA2 = AIs.RandomPlay("Matt")
+		self.playerB1 = AIs.RealPlayer("Tyler")
+		self.playerB2 = AIs.RandomPlay("Hudson")
 
 		# make a list of the players for rotations
 		self.players = [self.playerA1, self.playerB1, self.playerA2, self.playerB2]
