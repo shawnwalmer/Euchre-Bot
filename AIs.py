@@ -265,7 +265,8 @@ class RealPlayer(Player):
 	def updateInfo(self, winner):
 		print "The scores are A: %s, B %s" % (game.scoreA, game.scoreB)
 		print "The winner of the previous trick was %s" % (winner.name)
-		print "The center of the table is %s" % ", ".join(v.encode('ascii', 'ignore') for v in game.center.keys())
+		keys = game.center.keys()
+		print "Cards played: %s, %s, %s, %s" % (keys[0], keys[1], keys[2], keys[3])
 
 	def orderUp(self, center_card):
 		self.printHand()
@@ -308,7 +309,7 @@ class RealPlayer(Player):
 		move = int(raw_input("Please enter the # of the card you wish to discard: "))
 		while True:
 			if type(move) is int and 0 <= move < len(self.hand):
-				choice = self.hand.remove(move)
+				choice = self.hand.pop(move)
 				self.hand.append(center_card)
 				return choice
 			else:
