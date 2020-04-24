@@ -306,14 +306,14 @@ class RealPlayer(Player):
 		print "Your hand contains:",
 		self.printHand()
 		
-		move = int(raw_input("Please enter the # of the card you wish to discard: "))
+		discard = int(raw_input("Please enter the # of the card you wish to discard: "))
 		while True:
-			if type(move) is int and 0 <= move < len(self.hand):
-				choice = self.hand.pop(move)
+			if type(discard) is int and 0 <= discard < len(self.hand):
+				choice = self.hand.pop(discard)
 				self.hand.append(center_card)
 				return choice
 			else:
-				move = int(input("Please enter a valid discard: "))
+				discard = int(input("Please enter a valid discard: "))
 	
 	def reset(self):
 		# not necessary for a real player
