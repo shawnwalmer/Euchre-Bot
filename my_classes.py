@@ -6,10 +6,10 @@ import random
 class Euchre():
 	def __init__(self):
 		# initialize AI's here
-		self.playerA1 = AIs.SimpleStat("Shawn")
-		self.playerA2 = AIs.RandomPlay("Matt")
-		self.playerB1 = AIs.RealPlayer("Tyler")
-		self.playerB2 = AIs.RandomPlay("Hudson")
+		self.playerA1 = AIs.SimpleStat("Tyler")
+		self.playerA2 = AIs.RandomPlay("Hudson")
+		self.playerB1 = AIs.RealPlayer("Shawn")
+		self.playerB2 = AIs.RandomPlay("Matt")
 
 		# make a list of the players for rotations
 		self.players = [self.playerA1, self.playerB1, self.playerA2, self.playerB2]
@@ -70,13 +70,13 @@ class Euchre():
 		for x in range(5):
 			winner = self.playTrick(winner)
 			keys = game.center.keys()
-			txt = "End of trick:\n\t%s, %s, %s, %s\n\tWinner:%s\n" % (keys[0], keys[1], keys[2], keys[3],winner.name)
+			txt = "End of trick:\n\t%s, %s, %s, %s\n\tWinner:%s\n" % (keys[0], keys[1], keys[2], keys[3], winner.name)
 			out.log(txt)
 			for p in self.players:
 				p.updateInfo(winner)
 				
 		self.allotScore()
-		out.log("End of round:\n\tTrump: %s\n\tCaller: %s\n\tScores A: %d B: %d\n" % \
+		out.log("End of round:\n\tTrump: %s\n\tCaller: %s\n\tScores A: %d B: %d\n" %
 			(game.trump, game.caller.name, game.scoreA, game.scoreB))
 		
 

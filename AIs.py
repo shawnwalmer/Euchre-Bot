@@ -58,6 +58,7 @@ class RandomPlay(Player):
 		moves = self.validMoves()
 		chosen = random.choice(moves)
 		self.hand.remove(chosen)
+		print "%s plays %s" % (self.name, chosen)
 		return chosen
 		
 	def updateInfo(self, winner):
@@ -113,15 +114,19 @@ class SimpleStat(Player):
 		
 		if len(valids) == 1:
 			self.hand.remove(valids[0])
+			print "%s plays %s" % (self.name, valids[0])
 			return valids[0]
 			
 		if game.center:
 			if len(poss_opp_cards & self.suits[game.lead]) < 3:
-				choice = random.choice(self.hand)
-				self.hand.remove(choice)
-				return choice
-				
-		return sorted(self.hand, key=lambda c: c.num, reverse=True)[0]
+				chosen = random.choice(self.hand)
+				self.hand.remove(chosen)
+				print "%s plays %s" % (self.name, chosen)
+				return chosen
+		chosen = sorted(self.hand, key=lambda c: c.num, reverse=True)[0]
+		self.hand.remove(chosen)
+		print "%s plays %s" % (self.name, chosen)
+		return chosen
 			
 			
 
