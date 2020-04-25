@@ -262,8 +262,9 @@ class RealPlayer(Player):
 		valid = self.validMoves()
 		while True:
 			if type(move) is int and 0 <= move < len(self.hand) and self.hand[move] in valid:
-				choice = self.hand.pop(move)
-				return choice
+				chosen = self.hand.pop(move)
+				print "%s plays %s" % (self.name, chosen)
+				return chosen
 			else:
 				move = int(input("Please enter a valid move: "))
 				
@@ -271,7 +272,7 @@ class RealPlayer(Player):
 		print "The scores are A: %s, B %s" % (game.scoreA, game.scoreB)
 		print "The winner of the previous trick was %s" % (winner.name)
 		keys = game.center.keys()
-		print "Cards played: %s, %s, %s, %s" % (keys[0], keys[1], keys[2], keys[3])
+		#print "Cards played: %s, %s, %s, %s" % (keys[0], keys[1], keys[2], keys[3])
 
 	def orderUp(self, center_card):
 		self.printHand()
@@ -315,6 +316,7 @@ class RealPlayer(Player):
 		while True:
 			if type(discard) is int and 0 <= discard < len(self.hand):
 				choice = self.hand.pop(discard)
+				assert isinstance(center_card)
 				self.hand.append(center_card)
 				return choice
 			else:
