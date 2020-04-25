@@ -66,12 +66,19 @@ class RandomPlay(Player):
 		pass
 
 	def orderUp(self, center_card):
-		return random.choice([True, False])
+		choice = random.choice([True, False])
+		if choice == True:
+			print "%s orders up" % (self.name)
+		else:
+			print "%s passes" % (self.name)
 
 	def pickSuit(self, out_suit):
 		if random.choice([True, False]) or game.dealer == self:
-			return random.choice([x for x in [heart, spade, club, diamond] if x != out_suit])
+			choice = random.choice([x for x in [heart, spade, club, diamond] if x != out_suit])
+			print "%s plays %s" % (self.name, choice)
+			return choice
 		else:
+			print "%s passes" % (self.name)
 			return None
 
 	def pickUp(self, top):
@@ -160,12 +167,15 @@ class SimpleStat(Player):
 		poss_powers = filter(lambda c: c.suit == center_card.suit, self.hand)
 		
 		if len(poss_powers) >= 3:
+			print "%s orders up" % (self.name)
 			return True
 			
 		for c in self.hand:
 			if (c.suit == center_card.suit or c.suit == offSuit(center_card.suit)) and c.num == 11:
 				if len(poss_powers) >= 2:
+					print "%s orders up" % (self.name)
 					return True
+		print "%s passes" % (self.name)
 		return False
 
 	def pickSuit(self, out_suit):
@@ -176,8 +186,9 @@ class SimpleStat(Player):
 				
 		for s, n in nums.items():
 			if n >= 3:
+				print "%s chooses %s" % (self.name, s)
 				return s
-		
+		print "%s passes" % (self.name)
 		return None
 
 	def pickUp(self, card):
@@ -258,7 +269,7 @@ class RealPlayer(Player):
 	
 	def playCard(self):
 		self.printHand()
-		move = int(raw_input("Please enter the # of the card you wish to play: "))
+		move = int(raw_input("Please enter the # of the card you wish to play (%s|%s):" % (game.trump, game.lead)))
 		valid = self.validMoves()
 		while True:
 			if type(move) is int and 0 <= move < len(self.hand) and self.hand[move] in valid:
@@ -278,10 +289,19 @@ class RealPlayer(Player):
 		self.printHand()
 		if self == game.dealer:
 			if query_yes_no("Do you want to pick up %s?" % (center_card)):
+				print "%s orders up %s" % (self.name, center_card.suit)
 				return True
+			else:
+				print "%s passes" % (self.name)
+				return False
 
 		else:
-			return query_yes_no("Do you want to order the dealer up: %s?" % (center_card))
+			choice = query_yes_no("Do you want to order the dealer up: %s?" % (center_card))
+			if choice == False:
+				print "%s passes" % (self.name)
+			else:
+				print "%s orders up %s" % (self.name, center_card.suit)
+			return choice
 
 	def pickSuit(self, out_suit):
 		open_suits = (set(heart, spade, diamond, club) - set(out_suit))
@@ -292,15 +312,19 @@ class RealPlayer(Player):
 				choice = raw_input("Enter the first letter of the suit name: ").lower()
 				if choice[0] == 'd':
 					if diamond in open_suits:
+						print "%s plays %s" % (self.name, "diamond")
 						return diamond
 				elif choice[0] == 'h':
 					if heart in open_suits:
+						print "%s plays %s" % (self.name, "heart")
 						return heart
 				elif choice[0] == 's':
 					if spade in open_suits:
+						print "%s plays %s" % (self.name, "spade")
 						return spade
 				elif choice[0] == 'c':
 					if club in open_suits:
+						print "%s plays %s" % (self.name, "club")
 						return club
 				else:
 					print "Please enter a valid choice."
@@ -316,7 +340,6 @@ class RealPlayer(Player):
 		while True:
 			if type(discard) is int and 0 <= discard < len(self.hand):
 				choice = self.hand.pop(discard)
-				assert isinstance(center_card)
 				self.hand.append(center_card)
 				return choice
 			else:
