@@ -304,7 +304,8 @@ class RealPlayer(Player):
 			return choice
 
 	def pickSuit(self, out_suit):
-		open_suits = (set(heart, spade, diamond, club) - set(out_suit))
+		open_suits = [heart, spade, diamond, club]
+		open_suits.remove(out_suit)
 		if query_yes_no("Do you want to pick a suit? (out suit is %s)" % out_suit):
 			print "Pick %s, %s, or %s." % (open_suits[0], open_suits[1], open_suits[2])
 			
